@@ -1,0 +1,28 @@
+{
+  "name": "cs-test-chatbot",
+  "version": "1.0.0",
+  "description": "chat bot test",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "jasmine-node --color --verbose --autotest spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.15.0",
+    "botbuilder-cognitiveservices": "^1.2.0",
+    "dotenv": "^6.0.0",
+    "dotenv-extended": "^2.2.0",
+    "express": "^4.16.3",
+    "jasmine-node": "^1.15.0",
+    "npm": "^6.3.0",
+    "restify": "^7.2.1"
+  },
+  "spec_files": [
+    "spec/**/*.spec.js"
+  ],
+  "devDependencies": {
+    "eslint-plugin-jasmine": "^2.10.1"
+  }
+}
