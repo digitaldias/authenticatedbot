@@ -1,40 +1,29 @@
 "use strict";
 
 require('dotenv-extended').load();
-const builder               = require('botbuilder');
-const AuthenticationService = require('../../services/AuthenticationService');
+const builder                 = require('botbuilder');
+const AuthenticatedBotCreator = require('../../services/AuthenticatedBotCreator');
 
 var chatConnector;
 
-describe("class AuthenticationService", () => 
+describe("class AuthenticatedBotCreator", () => 
 {
     beforeEach( () => 
     {
         // This space for rent            
     });
 
-    it("Uses an internal memoryStorage to preserve state", () => 
-    {
-        // Arrange
-        spyOn(builder, "MemoryBotStorage").andCallThrough();
-
-        // Act
-        new AuthenticationService()
-
-        // Assert
-        expect(builder.MemoryBotStorage).toHaveBeenCalled();
-    });    
 
     it("Obtains connection name from environment", () => 
     {
         // Act
-        var instance = new AuthenticationService();
+        var instance = new AuthenticatedBotCreator();
 
         // Assert
         expect(instance.connectionName).toBe(process.env.CONNECTION_NAME);
     });
 
-    describe("CreateBot(chatConnector)", () => 
+    describe("create(chatConnector, storage)", () => 
     {       
         beforeEach( () => 
         {
@@ -49,18 +38,29 @@ describe("class AuthenticationService", () =>
         {
             // Arrange
             var dummyConnector = {};
-            var instance = new AuthenticationService();
+            var instance = new AuthenticatedBotCreator();
 
             // Act & Assert
             expect( () => {
-                instance.CreateBot(dummyConnector);
+                instance.create(dummyConnector);
             }).toThrow();
         })
+
+        it("Requires a valid storage to function", () => 
+        {
+            // Arrange
+            var dummyStorage = {};
+
+            // Act
+            expect( () => {
+                instance.create(chatConnector, dummyStorage);
+            }).toThrow();
+        });
 
         it("Creates a UniversalBot using the builder object", () => 
         {
             // Act
-            var instance = new AuthenticationService();
+            var instance = new AuthenticatedBotCreator();
             
             // Assert
             expect(instance.bot).not.toBeNull;            

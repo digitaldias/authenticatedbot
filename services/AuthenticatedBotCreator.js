@@ -22,6 +22,9 @@ module.exports = class AuthenticatedBotCreator
     {
         if(!chatConnector)
             throw new Error("CreateBot was called without a valid chatConnector");
+
+        if(!storage)
+            throw new Error("Storage must be a valid storage object");
         
         var that = this;
         that.bot = new builder.UniversalBot(chatConnector, function (session) 
