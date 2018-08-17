@@ -50,11 +50,12 @@ describe("class AuthenticatedBotCreator", () =>
         {
             // Arrange
             var dummyStorage = {};
+            var instance = new AuthenticatedBotCreator();
 
             // Act
             expect( () => {
                 instance.create(chatConnector, dummyStorage);
-            }).toThrow();
+            }).not.toThrow();
         });
 
         it("Creates a UniversalBot using the builder object", () => 
